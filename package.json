@@ -1,0 +1,30 @@
+{
+  "name": "olympic-dataset-madhu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "./node_modules/.bin/babel src --out-dir lib && node lib/index.js",
+    "dev": "nodemon --exec babel-node src/index.js --ignore 'output/*.json'",
+    "serve": "nodemon --exec babel-node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:mountblue/cohort-9-may-js/olympic-dataset.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.3.1",
+    "jest": "^24.3.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.8",
+    "nodemon": "^1.19.1"
+  }
+}
