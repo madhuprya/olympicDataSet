@@ -1,3 +1,4 @@
+/*******************************Questions-1 *********************************/
 function getUniqueGames(events, games) {
   const uniqueGames = events
        .map(event => event[games])
@@ -6,20 +7,19 @@ function getUniqueGames(events, games) {
    return uniqueGames;
 }
 export const getNoOfOlympicHosted = athlete_events => { 
- return getUniqueGames(athlete_events,'Games').reduce( (accumulator, event)=>{
-    if(accumulator.hasOwnProperty(event.City))
+ return getUniqueGames(athlete_events,'Games').reduce( (result, event)=>{
+    if(result.hasOwnProperty(event.City))
     {
-      accumulator[event.City]++;
+      result[event.City]++;
     }
     else{
-      accumulator[event.City]=1;
+      result[event.City]=1;
     }
-  return accumulator;
+  return result;
   }, {});      
 };
 
-
-/*******************************Questions-2 */
+/*******************************Questions-2 *********************************/
 function getMedal(events, medal){
   const medal_events = 
   events.filter(event=>(event[medal]==='Gold'| event[medal]==='Silver' |event[medal]==='Bronze') && event.Year>2000);
@@ -27,7 +27,7 @@ function getMedal(events, medal){
 }
 export const getCountriesWonMedal = athlete_events => {
   var result={};
-  getMedal(athlete_events,'Medal').reduce((accumulator,event)=>{
+  getMedal(athlete_events,'Medal').reduce((acc,event)=>{
     if(result.hasOwnProperty(event.Team)){
       result[event.Team]['medal_count']+=1;
       if(event.Medal==='Gold'){
@@ -66,7 +66,38 @@ export const getCountriesWonMedal = athlete_events => {
   return arr;
 };
 
-//**2nd problem **/
+//**3rd problem **/
+
+function decadeCount(year){
+  var decade = (year-1896)/10;
+  return Math.round(decade+1);
+}
+ export const getGenderCountPerDecade = athlete_events=>{
+    return athlete_events.reduce((result,event)=>{
+    var decade=decadeCount(event.Year);
+    if(result.hasOwnProperty(decade)){
+      if(event.Sex==='M'){
+        result[decade]['M']+=1;
+      }
+      if(event.Sex==='F'){
+        result[decade]['F']+=1;
+      }
+    }
+    else{
+      result[decade]={};
+      result[decade]['M']=0;
+      result[decade]['F']=0;
+      if(event.Sex==='M'){
+        result[decade]['M']=1;
+      }
+      if(event.Sex==='F'){
+        result[decade]['F']=1;
+      }
+    }
+   return result;
+  },{}); 
+ };
+
 
 
 
@@ -98,19 +129,19 @@ export const getCountriesWonMedal = athlete_events => {
 // const getNoOfOlympicHosted = async() => {
 //   var athlete_events=await parseCsv('../data/athlete_events.csv');
 //   var res=[];
-//   return athlete_events.reduce( (accumulator, event)=>{
+//   return athlete_events.reduce( (result, event)=>{
 //   if(res.indexOf(event.Games) === -1){
 //     res.push(event.Games);
-//     if(accumulator.hasOwnProperty(event.City))
+//     if(result.hasOwnProperty(event.City))
 //     {
-//       accumulator[event.City]++;
+//       result[event.City]++;
 //     }
 //     else{
-//       accumulator[event.City]=1;
+//       result[event.City]=1;
 //     }
 //   }
   
-//   console.log(accumulator);
+//   console.log(result);
 //   }, {});
 // };
 // getNoOfOlympicHosted();
