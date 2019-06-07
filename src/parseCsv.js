@@ -36,6 +36,7 @@ let convertToJson = async filePath => {
   return array;
 };
 
+
 let getGames = async () => {
   let athlete_events = await convertToJson("./data/athlete_events.csv");
   let noc_regions = await convertToJson("./data/noc_regions.csv");

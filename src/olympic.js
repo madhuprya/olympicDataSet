@@ -17,13 +17,17 @@ export const getNoOfOlympicHosted = athlete_events => {
   return accumulator;
   }, {});      
 };
+
+
+/*******************************Questions-2 */
 function getMedal(events, medal){
   const medal_events = 
   events.filter(event=>(event[medal]==='Gold'| event[medal]==='Silver' |event[medal]==='Bronze') && event.Year>2000);
   return medal_events;
 }
 export const getCountriesWonMedal = athlete_events => {
-  return  getMedal(athlete_events,'Medal').reduce((result,event)=>{
+  var result={};
+  getMedal(athlete_events,'Medal').reduce((accumulator,event)=>{
     if(result.hasOwnProperty(event.Team)){
       result[event.Team]['medal_count']+=1;
       if(event.Medal==='Gold'){
@@ -52,10 +56,14 @@ export const getCountriesWonMedal = athlete_events => {
         result[event.Team]['Bronze'] = 1;
       }
     }
-    
-    
-
   },{});
+  var arr=Object.keys(result).sort((a,b)=>{
+    return result[b]['medal_count']-result[a]['medal_count'];}).slice(0,10).map(e=>{
+      let t={};
+      t[e]=result[e];
+      return t;
+    });
+  return arr;
 };
 
 //**2nd problem **/
