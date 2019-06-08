@@ -1,4 +1,4 @@
-## IPL DataSet 
+## OLYMPIC DataSet 
 
 To run :
 

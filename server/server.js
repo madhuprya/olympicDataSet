@@ -2,7 +2,7 @@ import http from "http";
 import path from "path";
 import { readFile } from "../src/fileio";
 
-let PORT = process.env.PORT || 3800;
+let PORT = process.env.PORT || 3000;
 
 let mimetype = {
   ".json": "application/json",
@@ -31,8 +31,17 @@ let server = http.createServer((request, response) => {
     case "/getNoOfOlympicHosted":
       getFile(response, "./output/getNoOfOlympicHosted.json");
       break;
+    case "/getGenderCountPerDecade":
+      getFile(response, "./output/getGenderCountPerDecade.json");
+      break;
     case "/getCountriesWonMedal":
       getFile(response, "./output/getCountriesWonMedal.json");
+      break;
+    case "/getAverageAge":
+      getFile(response, "./output/getAverageAge.json");
+      break;
+    case "/getMedalistsIndia":
+      getFile(response, "./output/getMedalistsIndia.json");
       break;
   }
 });
