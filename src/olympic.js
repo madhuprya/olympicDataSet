@@ -105,7 +105,7 @@ function getBoxingEvents(events, event ,age){
   return boxing_event;
 }
 export const getAverageAge = athlete_events=>{
-    console.log(getBoxingEvents(athlete_events,'Event','Age'));
+   // console.log(getBoxingEvents(athlete_events,'Event','Age'));
   return getBoxingEvents(athlete_events,'Event','Age').reduce((result,event)=>{
   if (result.hasOwnProperty(event.Year)) {
     result[event.Year]['Age_Sum']+=parseInt(event.Age);
@@ -124,31 +124,25 @@ export const getAverageAge = athlete_events=>{
 /*******************************Questions-5*********************************/
 function getIndianMedalists(events, team ,medal){
   const indian_medalists = 
-  events.filter(item=>(item[team]==='India') && item[medal]!='NA');
+  events.filter(item=>(item[team]==='India') && item[medal]!=='NA');
   return indian_medalists;
 }
+
 export const getMedalistsIndia = athlete_events=>{
-  return getIndianMedalists(athlete_events,'Team','Age').reduce((result,event)=>{
-    if (result.hasOwnProperty(event.Season)) {
-      if(event.Season==='Summer'){
-        result[event.Season]['WinnerLists'].push(event.Name);
-      }
-      if(event.Season==='Winter'){
-        result[event.Season]['WinnerLists'].push(event.Name);
+  //console.log(getIndianMedalists(athlete_events,'Team','Medal'));
+  return getIndianMedalists(athlete_events,'Team','Medal').reduce((indiaResult,event)=>{
+    if (indiaResult.hasOwnProperty(event.Season)) {
+      if(indiaResult[event.Season].hasOwnProperty(event.Name)){
+        indiaResult[event.Season][event.Name]+=1;
+      }else{
+        indiaResult[event.Season][event.Name]=1;
       }
     }
     else{
-      result[event.Season]={};
-      result[event.Season]['WinnerLists']=[];
-      if(event.Season==='Summer'){
-        result[event.Season]['WinnerLists'].push(event.Name);
-      }
-      if(event.Season==='Winter'){
-        result[event.Season]['WinnerLists'].push(event.Name);
-      }
+      indiaResult[event.Season]={};
     }
-    return result;
-  });
+    return indiaResult;
+  },{});
 };
 
 
