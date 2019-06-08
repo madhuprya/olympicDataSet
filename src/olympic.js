@@ -105,45 +105,51 @@ function getBoxingEvents(events, event ,age){
   return boxing_event;
 }
 export const getAverageAge = athlete_events=>{
-  var sAge=0 , wAge=0 , wTotal=0 , sTotal=0;
-  // console.log(getBoxingEvents(athlete_events,'Event','Age'));
+    console.log(getBoxingEvents(athlete_events,'Event','Age'));
   return getBoxingEvents(athlete_events,'Event','Age').reduce((result,event)=>{
-  if (result.hasOwnProperty(event.Season)) {
-    if(event.Season==='Summer'){
-      sAge+=parseInt(event.Age);
-      sTotal+=1;
-    }
-    if(event.Season==='Winter'){
-      wAge+=parseInt(event.Age);
-      wTotal+=1;
-    }
+  if (result.hasOwnProperty(event.Year)) {
+    result[event.Year]['Age_Sum']+=parseInt(event.Age);
+    result[event.Year]['Count']+=1;
+    
   }else{
-    result['Summer']={};
-    result['Summer']['avg_age']=0;
-    result['Winter']={};
-    result['Winter']['avg_age']=0;
-    result[event.Season]['avg_age']=0;
-    if(event.Season==='Summer'){
-    
-      sAge=parseInt(event.Age);
-      sTotal=1;
-    }
-    if(event.Season==='Winter'){
-    
-      wAge=parseInt(event.Age);
-      wTotal=1;
-    }
+    result[event.Year]={};
+    result[event.Year]['avg_age']=0;
+    result[event.Year]['Age_Sum']=parseInt(event.Age);
+    result[event.Year]['Count']=1;
   }
-  result['Summer']['avg_age'] = Math.round(sAge/sTotal);
-  result['Winter']['avg_age'] = Math.round(sAge/sTotal);
+  result[event.Year]['avg_age']  = Math.round( result[event.Year]['Age_Sum']/result[event.Year]['Count']);
   return result;
   },{});
 };
 /*******************************Questions-5*********************************/
-
-
-
-
+function getIndianMedalists(events, team ,medal){
+  const indian_medalists = 
+  events.filter(item=>(item[team]==='India') && item[medal]!='NA');
+  return indian_medalists;
+}
+export const getMedalistsIndia = athlete_events=>{
+  return getIndianMedalists(athlete_events,'Team','Age').reduce((result,event)=>{
+    if (result.hasOwnProperty(event.Season)) {
+      if(event.Season==='Summer'){
+        result[event.Season]['WinnerLists'].push(event.Name);
+      }
+      if(event.Season==='Winter'){
+        result[event.Season]['WinnerLists'].push(event.Name);
+      }
+    }
+    else{
+      result[event.Season]={};
+      result[event.Season]['WinnerLists']=[];
+      if(event.Season==='Summer'){
+        result[event.Season]['WinnerLists'].push(event.Name);
+      }
+      if(event.Season==='Winter'){
+        result[event.Season]['WinnerLists'].push(event.Name);
+      }
+    }
+    return result;
+  });
+};
 
 
 

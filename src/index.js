@@ -3,7 +3,8 @@ import {
   getNoOfOlympicHosted,
   getCountriesWonMedal,
   getGenderCountPerDecade,
-  getAverageAge
+  getAverageAge,
+  getMedalistsIndia
 
 } from "./olympic";
 import {
@@ -30,6 +31,10 @@ getData().then(async data => {
     await writeFile(
       "./output/getAverageAge.json",
       getAverageAge(athlete_events)
+    );
+    await writeFile(
+      "./output/getMedalistsIndia.json",
+      getMedalistsIndia(athlete_events)
     );
     
   } catch (error) {
