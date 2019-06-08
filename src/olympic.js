@@ -118,7 +118,10 @@ export const getAverageAge = athlete_events=>{
       wTotal+=1;
     }
   }else{
-    result[event.Season]={};
+    result['Summer']={};
+    result['Summer']['avg_age']=0;
+    result['Winter']={};
+    result['Winter']['avg_age']=0;
     result[event.Season]['avg_age']=0;
     if(event.Season==='Summer'){
     
@@ -132,10 +135,11 @@ export const getAverageAge = athlete_events=>{
     }
   }
   result['Summer']['avg_age'] = Math.round(sAge/sTotal);
+  result['Winter']['avg_age'] = Math.round(sAge/sTotal);
   return result;
   },{});
 };
-
+/*******************************Questions-5*********************************/
 
 
 
