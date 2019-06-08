@@ -98,7 +98,43 @@ function decadeCount(year){
   },{}); 
  };
 
-
+/*******************************Questions-4*********************************/
+function getBoxingEvents(events, event ,age){
+  const boxing_event = 
+  events.filter(item=>(item[event]==="Boxing Men's Heavyweight") && item[age]!='NA');
+  return boxing_event;
+}
+export const getAverageAge = athlete_events=>{
+  var sAge=0 , wAge=0 , wTotal=0 , sTotal=0;
+  // console.log(getBoxingEvents(athlete_events,'Event','Age'));
+  return getBoxingEvents(athlete_events,'Event','Age').reduce((result,event)=>{
+  if (result.hasOwnProperty(event.Season)) {
+    if(event.Season==='Summer'){
+      sAge+=parseInt(event.Age);
+      sTotal+=1;
+    }
+    if(event.Season==='Winter'){
+      wAge+=parseInt(event.Age);
+      wTotal+=1;
+    }
+  }else{
+    result[event.Season]={};
+    result[event.Season]['avg_age']=0;
+    if(event.Season==='Summer'){
+    
+      sAge=parseInt(event.Age);
+      sTotal=1;
+    }
+    if(event.Season==='Winter'){
+    
+      wAge=parseInt(event.Age);
+      wTotal=1;
+    }
+  }
+  result['Summer']['avg_age'] = Math.round(sAge/sTotal);
+  return result;
+  },{});
+};
 
 
 

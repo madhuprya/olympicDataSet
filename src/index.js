@@ -2,7 +2,8 @@ import getData from "./parseCsv";
 import {
   getNoOfOlympicHosted,
   getCountriesWonMedal,
-  getGenderCountPerDecade
+  getGenderCountPerDecade,
+  getAverageAge
 
 } from "./olympic";
 import {
@@ -26,7 +27,11 @@ getData().then(async data => {
       "./output/getGenderCountPerDecade.json",
       getGenderCountPerDecade(athlete_events)
     );
-
+    await writeFile(
+      "./output/getAverageAge.json",
+      getAverageAge(athlete_events)
+    );
+    
   } catch (error) {
     console.log(error);
   }
