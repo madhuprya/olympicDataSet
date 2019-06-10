@@ -25,9 +25,9 @@ function getMedal(events, medal){
   events.filter(event=>(event[medal]==='Gold'| event[medal]==='Silver' |event[medal]==='Bronze') && event.Year>2000);
   return medal_events;
 }
-export  function getCountriesWonMedal( athlete_events,noc_regions ){
+export  const getCountriesWonMedal = athlete_events=>{
   let result = getMedal(athlete_events,'Medal').reduce((result,event)=>{
-    if(result.hasOwnProperty(event.Noc)){
+    if(result.hasOwnProperty(event.Team)){
       result[event.Team]['medal_count']+=1;
       if(event.Medal==='Gold'){
         result[event.Team]['Gold']+=1;
@@ -59,13 +59,17 @@ export  function getCountriesWonMedal( athlete_events,noc_regions ){
   },{});
   let medalResult={};
   Object.keys(result).sort((a,b)=>{
-    result[b]['medal_count']-result[a]['medal_count'];}).slice(0,10).map(e=>{
+   return result[b]['medal_count']-result[a]['medal_count'];}).slice(0,10).map(e=>{
     medalResult[e]=result[e];
     });
   return medalResult;
 };
 
 //**3rd problem **/
+function decadeCount(year){
+  var decade = Math.round((year - 1890)/10);
+  return Math.floor(decade);
+}
 
  export const getGenderCountPerDecade = athlete_events=>{
   let genderPerYear = athlete_events.reduce((result, item) =>{
@@ -103,6 +107,7 @@ export  function getCountriesWonMedal( athlete_events,noc_regions ){
       }
       return result
   }, {});
+ 
 }
 
 /*******************************Questions-4*********************************/

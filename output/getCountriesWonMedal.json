@@ -1,62 +1,62 @@
 {
-  "Finland": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
-  },
-  "Digby": {
-    "Gold": 0,
-    "Silver": 0,
-    "Bronze": 1,
-    "medal_count": 1
-  },
-  "Italy": {
-    "Gold": 1,
-    "Silver": 0,
-    "Bronze": 0,
-    "medal_count": 1
-  },
-  "Spain": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
-  },
-  "Azerbaijan": {
-    "Gold": 0,
-    "Silver": 0,
-    "Bronze": 1,
-    "medal_count": 1
+  "United States": {
+    "Gold": 546,
+    "Silver": 440,
+    "Bronze": 335,
+    "medal_count": 1321
   },
   "Russia": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
+    "Gold": 238,
+    "Silver": 195,
+    "Bronze": 293,
+    "medal_count": 726
   },
-  "Belarus": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
+  "Germany": {
+    "Gold": 229,
+    "Silver": 203,
+    "Bronze": 227,
+    "medal_count": 659
   },
-  "France": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
-  },
-  "United States": {
-    "Gold": 0,
-    "Silver": 1,
-    "Bronze": 0,
-    "medal_count": 1
+  "China": {
+    "Gold": 222,
+    "Silver": 157,
+    "Bronze": 149,
+    "medal_count": 528
   },
   "Australia": {
-    "Gold": 0,
-    "Silver": 0,
-    "Bronze": 1,
-    "medal_count": 1
+    "Gold": 126,
+    "Silver": 193,
+    "Bronze": 193,
+    "medal_count": 512
+  },
+  "Canada": {
+    "Gold": 219,
+    "Silver": 114,
+    "Bronze": 144,
+    "medal_count": 477
+  },
+  "Great Britain": {
+    "Gold": 165,
+    "Silver": 136,
+    "Bronze": 120,
+    "medal_count": 421
+  },
+  "France": {
+    "Gold": 108,
+    "Silver": 134,
+    "Bronze": 122,
+    "medal_count": 364
+  },
+  "Italy": {
+    "Gold": 72,
+    "Silver": 129,
+    "Bronze": 142,
+    "medal_count": 343
+  },
+  "Japan": {
+    "Gold": 70,
+    "Silver": 100,
+    "Bronze": 141,
+    "medal_count": 311
   }
 }

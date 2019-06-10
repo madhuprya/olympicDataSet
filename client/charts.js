@@ -1,6 +1,7 @@
 let NoOfOlympicHosted;
 let AverageAge;
 let getCountriesWonMedal;
+let getGenderCountPerDecade;
 
 let serverUrl = "http://localhost:3000/";
 
@@ -13,16 +14,21 @@ function getData() {
   fetch(serverUrl + "getAverageAge")
     .then(data => data.json())
     .then(data => (AverageAge = data))
-    .then(() => plotAverageAge(AverageAge, "problem3"));
+    .then(() => plotAverageAge(AverageAge, "problem4"));
 
   fetch(serverUrl + "getCountriesWonMedal")
     .then(data => data.json())
     .then(data => (getCountriesWonMedal = data))
     .then(() => plotgetCountriesWonMedal(getCountriesWonMedal, "problem2"));
 
+  fetch(serverUrl + "getGenderCountPerDecade")
+    .then(data => data.json())
+    .then(data => (getGenderCountPerDecade = data))
+    .then(() => plotgetGenderCountPerDecade(getGenderCountPerDecade, "problem3"));
+
 }
 getData();
-
+/********************************OLYMPIC PER COUNTRY*********************************************** */
 function plotgetNoOfOlympicHosted(data, elementID) {
   Highcharts.chart(elementID, {
     colors: [
@@ -91,13 +97,100 @@ function plotgetNoOfOlympicHosted(data, elementID) {
     }]
   });
 }
+/***********************************GENDER PER DECADE****************** */
 
+function plotgetGenderCountPerDecade(data, elementID) {
+
+  let fSeries =Object.keys(data).reduce((accumulator,event)=>{
+    accumulator.push(data[event]['F']);
+    return accumulator;
+  },[]);
+
+  let mSeries =Object.keys(data).reduce((accumulator,event)=>{
+    accumulator.push(data[event]['M']);
+    return accumulator;
+  },[]);
+
+  Highcharts.chart(elementID, {
+    colors: [
+      "#2b908f",
+      "#90ee7e",
+      "#f45b5b",
+      "#7798BF",
+      "#aaeeee",
+      "#ff0066",
+      "#eeaaee",
+      "#55BF3B",
+      "#DF5353",
+      "#7798BF",
+      "#aaeeee"
+    ],
+    chart: {
+      type: "column",
+      backgroundColor: "#2c2c2c",
+      plotBorderColor: "#606063"
+    },
+    title: {
+      text: "Gender Count Per Decade",
+      style: {
+        color: "#FFFFFF",
+        fontSize: "18px"
+      }
+    },
+    xAxis: {
+      categories: Object.keys(data),
+      crosshair: true,
+      labels: {
+        style: {
+          color: "#E0E0E3"
+        }
+      }
+    },
+    yAxis: {
+      title: {
+        text: "Gender Count",
+        style: {
+          color: "#FFFFFF",
+          fontSize: "18px"
+        }
+      },
+      labels: {
+        style: {
+          color: "#E0E0E3"
+        }
+      }
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+        showInLegend: false,
+        name: "MALE",
+        colorByPoint: "true",
+        data: mSeries
+      },
+      {
+        showInLegend: false,
+        name: "FEMALE",
+        colorByPoint: "true",
+        data: fSeries
+      }
+    ]
+  });
+}
+/***********************************AVERAGE AGE****************** */
 function plotAverageAge(data, elementID) {
   Highcharts.chart(elementID, {
     colors: [
       "#2b908f"
     ],
-    chart: {    
+    chart: {
       backgroundColor: "#2c2c2c",
       plotBorderColor: "#606063"
     },
@@ -117,9 +210,8 @@ function plotAverageAge(data, elementID) {
         }
       }
     },
-    
     yAxis: {
-      min: 0,
+      min: 17,
       title: {
         text: "Average Age of Boxing-HeavyWeight",
         style: {
@@ -136,7 +228,7 @@ function plotAverageAge(data, elementID) {
     plotOptions: {
       series: {
         step: 'left' // or 'center' or 'right'
-    }
+      }
     },
     credits: {
       enabled: false
@@ -149,11 +241,25 @@ function plotAverageAge(data, elementID) {
     }]
   });
 }
-
+/*******************************************MEDAL PER COUNTRY******************************** */
 function plotgetCountriesWonMedal(data, elementID) {
+
+  let gold=Object.keys(data).reduce((accumulator,event)=>{
+    accumulator.push(data[event]['Gold']);
+    return accumulator;
+  },[]);
+  let silver=Object.keys(data).reduce((accumulator,event)=>{
+    accumulator.push(data[event]['Silver']);
+    return accumulator;
+  },[]);
+  let bronze=Object.keys(data).reduce((accumulator,event)=>{
+    accumulator.push(data[event]['Bronze']);
+    return accumulator;
+  },[]);
+  
   Highcharts.chart(elementID, {
     chart: {
-      type: 'line',
+      type: 'column',
       backgroundColor: "#2c2c2c",
       plotBorderColor: "#606063"
     },
@@ -200,10 +306,7 @@ function plotgetCountriesWonMedal(data, elementID) {
       borderWidth: 1,
       shadow: false
     },
-    // tooltip: {
-    //     headerFormat: '<b>{point.x}</b><br/>',
-    //     pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-    // },
+   
     plotOptions: {
       column: {
         stacking: 'normal',
@@ -213,20 +316,17 @@ function plotgetCountriesWonMedal(data, elementID) {
       }
     },
     series: [{
-      // showInLegend: false,
       name: "Gold",
       colorByPoint: "true",
-      data: Object.values(data).values(data)
+      data:gold
     }, {
-      // showInLegend: false,
       name: "Silver",
       colorByPoint: "true",
-      data: Object.values(data)
+      data:silver
     }, {
-      // showInLegend: false,
       name: "Bronze",
       colorByPoint: "true",
-      data: Object.values(data)
+      data: bronze
     }]
   });
 }
