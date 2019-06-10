@@ -43,6 +43,9 @@ let server = http.createServer((request, response) => {
     case "/getMedalistsIndia":
       getFile(response, "./output/getMedalistsIndia.json");
       break;
+    default:
+      getFile(response, "./client/index.html");
+      break;
   }
 });
 

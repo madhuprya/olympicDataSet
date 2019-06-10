@@ -13,7 +13,6 @@ import {
 
 getData().then(async data => {
   let athlete_events = data.athlete_events;
-  let noc_regions = data.noc_regions;
   try {
 
     await writeFile(
