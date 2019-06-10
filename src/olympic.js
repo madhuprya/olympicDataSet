@@ -177,27 +177,3 @@ export const getMedalistsIndia = athlete_events=>{
 
 
 
-
-
-
-
-// var parseCsv=require('./parseCsv')
-// const getNoOfOlympicHosted = async() => {
-//   var athlete_events=await parseCsv('../data/athlete_events.csv');
-//   var res=[];
-//   return athlete_events.reduce( (result, event)=>{
-//   if(res.indexOf(event.Games) === -1){
-//     res.push(event.Games);
-//     if(result.hasOwnProperty(event.City))
-//     {
-//       result[event.City]++;
-//     }
-//     else{
-//       result[event.City]=1;
-//     }
-//   }
-  
-//   console.log(result);
-//   }, {});
-// };
-// getNoOfOlympicHosted();

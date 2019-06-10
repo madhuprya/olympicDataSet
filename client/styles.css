@@ -27,3 +27,31 @@ body {
 .chart {
     margin: 2rem;
 }
+.indian-medalists{
+    color: aliceblue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background: rgb(72, 73, 73);
+}
+
+.indian-medalists th{
+    font-size: 1em;
+    padding: 0.5em;
+    background: rgb(36, 35, 35);
+    color: white;
+    justify-self: stretch;
+}  
+
+.indian-medalists td{
+    font-size: 0.8em;
+    background: rgb(113, 115, 116);
+    padding: 0.5em;
+    font-weight: bold;
+}
+
+
+
+table tr {
+    display: grid;
+    grid-template-columns: 1fr ;
+}

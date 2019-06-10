@@ -2,6 +2,7 @@ let NoOfOlympicHosted;
 let AverageAge;
 let getCountriesWonMedal;
 let getGenderCountPerDecade;
+let getMedalistsIndia;
 
 let serverUrl = "http://localhost:3000/";
 
@@ -25,6 +26,11 @@ function getData() {
     .then(data => data.json())
     .then(data => (getGenderCountPerDecade = data))
     .then(() => plotgetGenderCountPerDecade(getGenderCountPerDecade, "problem3"));
+    
+  fetch(serverUrl + "getMedalistsIndia")
+    .then(data => data.json())
+    .then(data => (getMedalistsIndia = data))
+    .then(() => plotgetgetMedalistsIndia(getMedalistsIndia, "problem5"));
 
 }
 getData();
@@ -330,3 +336,24 @@ function plotgetCountriesWonMedal(data, elementID) {
     }]
   });
 }
+
+/**************************************************************INDIAN MEDALISTS*************************** */
+
+function plotgetgetMedalistsIndia(data,elementID){
+  let indianMedalists = '';
+  for(let i in data){
+      
+    indianMedalists += `<table>`
+      
+    indianMedalists += `<th>${i}</th>`
+    indianMedalists += `<tr>`
+      for(let j of data[i]){
+        indianMedalists += `<td> ${j}</td>\n`
+      
+      }
+      indianMedalists += `</tr>`
+      indianMedalists += `</table>`
+      }
+  
+      document.getElementById(elementID).innerHTML = indianMedalists
+  }
