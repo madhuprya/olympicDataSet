@@ -55,7 +55,6 @@ function decadeCount(year) {
   var decade = Math.round((year - 1890) / 10);
   return Math.floor(decade);
 }
-
 export const getGenderCountPerDecade = athlete_events => {
   let genderPerYear = athlete_events.reduce((result, item) => {
     if (!result.hasOwnProperty(item.Games)) {
@@ -77,21 +76,29 @@ export const getGenderCountPerDecade = athlete_events => {
     result[item]['F'] = genderPerYear[item]["F"];
     return result;
   }, {});
-  return Object.keys(gender).reduce((result, item) => {
-
+  let result= Object.keys(gender).reduce((result, item) => {
+    var decVal=decadeCount( parseInt(item.substring(0, 4)));
     var decStart = parseInt(item.substring(0, 3)) * 10;
     var decEnd = parseInt(decStart) + 9;
     var decade = parseInt(decStart) + '-' + decEnd;
     if (!result.hasOwnProperty(decade)) {
       result[decade] = {};
+      result[decade]['decadeValue']=decVal;
       result[decade]['M'] = gender[item]['M'];
       result[decade]['F'] = gender[item]['F'];
     } else {
       result[decade]['M'] += gender[item]['M'];
       result[decade]['F'] += gender[item]['F'];
     }
-    return result
+    return result;
   }, {});
+  let sortedDecade = {};
+  Object.keys(result).sort((a, b) => {
+    return result[a]['decadeValue'] - result[b]['decadeValue'];
+  }).map(e => {
+    sortedDecade[e] = result[e];
+  });
+  return sortedDecade;
 }
 
 /*******************************Questions-4*********************************/
@@ -132,7 +139,6 @@ function getIndianMedalists(events, team, medal) {
 
 export const getMedalistsIndia = athlete_events => {
   let indianMedalists = getIndianMedalists(athlete_events, 'India', 'NA');
-  //console.log(getIndianMedalists(athlete_events,'Team','Medal'));
   return indianMedalists.reduce((indiaResult, event) => {
     if (indiaResult.hasOwnProperty(event.Games)) {
       if (indiaResult[event.Games].indexOf(event.Name) == -1) {
