@@ -120,16 +120,7 @@ function plotgetGenderCountPerDecade(data, elementID) {
   Highcharts.chart(elementID, {
     colors: [
       "#2b908f",
-      "#90ee7e",
-      "#f45b5b",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee"
+      "#90ee7e"
     ],
     chart: {
       type: "column",
@@ -160,6 +151,17 @@ function plotgetGenderCountPerDecade(data, elementID) {
           fontSize: "18px"
         }
       },
+      legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderWidth: 1,
+        // shadow: false,
+      
+      },
       labels: {
         style: {
           color: "#E0E0E3"
@@ -169,22 +171,21 @@ function plotgetGenderCountPerDecade(data, elementID) {
     plotOptions: {
       column: {
         pointPadding: 0.2,
-        borderWidth: 0
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true
+        }
       }
     },
     credits: {
       enabled: false
     },
     series: [{
-        showInLegend: false,
         name: "MALE",
-        colorByPoint: "true",
         data: mSeries
       },
       {
-        showInLegend: false,
         name: "FEMALE",
-        colorByPoint: "true",
         data: fSeries
       }
     ]
@@ -227,7 +228,7 @@ function plotAverageAge(data, elementID) {
       },
       labels: {
         style: {
-          color: "#E0E0E3"
+         // color: "#E0E0E3"
         }
       }
     },
@@ -290,15 +291,13 @@ function plotgetCountriesWonMedal(data, elementID) {
       title: {
         text: 'Total Medal Country Won '
       },
+      style: {
+        fontWeight: 'bold',
+        color: "#FFFFFF"
+      },
       stackLabels: {
         enabled: true,
-        style: {
-          fontWeight: 'bold',
-          color: ( // theme
-            Highcharts.defaultOptions.title.style &&
-            Highcharts.defaultOptions.title.style.color
-          ) || 'blue'
-        }
+       
       }
     },
     legend: {
@@ -307,8 +306,7 @@ function plotgetCountriesWonMedal(data, elementID) {
       verticalAlign: 'top',
       y: 25,
       floating: true,
-      backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'white',
-      borderColor: '#CCC',
+      backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'gray',
       borderWidth: 1,
       shadow: false
     },
@@ -323,15 +321,12 @@ function plotgetCountriesWonMedal(data, elementID) {
     },
     series: [{
       name: "Gold",
-      colorByPoint: "true",
       data:gold
     }, {
       name: "Silver",
-      colorByPoint: "true",
       data:silver
     }, {
       name: "Bronze",
-      colorByPoint: "true",
       data: bronze
     }]
   });
