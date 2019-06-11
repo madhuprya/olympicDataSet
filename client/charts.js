@@ -107,15 +107,8 @@ function plotgetNoOfOlympicHosted(data, elementID) {
 
 function plotgetGenderCountPerDecade(data, elementID) {
 
-  let fSeries =Object.keys(data).reduce((accumulator,event)=>{
-    accumulator.push(data[event]['F']);
-    return accumulator;
-  },[]);
-
-  let mSeries =Object.keys(data).reduce((accumulator,event)=>{
-    accumulator.push(data[event]['M']);
-    return accumulator;
-  },[]);
+  let fSeries =Object.values(data).map(event=>event['F']);
+  let mSeries =Object.values(data).map(event=>event['M']);
 
   Highcharts.chart(elementID, {
     colors: [
@@ -160,7 +153,6 @@ function plotgetGenderCountPerDecade(data, elementID) {
         backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'white',
         borderWidth: 1,
         // shadow: false,
-      
       },
       labels: {
         style: {
@@ -251,18 +243,9 @@ function plotAverageAge(data, elementID) {
 /*******************************************MEDAL PER COUNTRY******************************** */
 function plotgetCountriesWonMedal(data, elementID) {
 
-  let gold=Object.keys(data).reduce((accumulator,event)=>{
-    accumulator.push(data[event]['Gold']);
-    return accumulator;
-  },[]);
-  let silver=Object.keys(data).reduce((accumulator,event)=>{
-    accumulator.push(data[event]['Silver']);
-    return accumulator;
-  },[]);
-  let bronze=Object.keys(data).reduce((accumulator,event)=>{
-    accumulator.push(data[event]['Bronze']);
-    return accumulator;
-  },[]);
+  let gold=Object.values(data).map(event=>event['Gold']);
+  let silver=Object.values(data).map(event=>event['Silver']);
+  let bronze=Object.values(data).map(event=>event['Bronze']);
   
   Highcharts.chart(elementID, {
     chart: {
