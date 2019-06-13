@@ -4,7 +4,7 @@ import {
   getCountriesWonMedal,
   getGenderCountPerDecade,
   getAverageAge,
-  getMedalistsIndia
+  getMedalistsOfCountry
 
 } from "./olympic";
 import {
@@ -21,7 +21,7 @@ getData().then(async data => {
     );
     await writeFile(
       "./output/getCountriesWonMedal.json",
-      getCountriesWonMedal(athlete_events)
+      getCountriesWonMedal(athlete_events,'NA',2000)
     );
     await writeFile(
       "./output/getGenderCountPerDecade.json",
@@ -29,11 +29,11 @@ getData().then(async data => {
     );
     await writeFile(
       "./output/getAverageAge.json",
-      getAverageAge(athlete_events)
+      getAverageAge(athlete_events,"Boxing Men's HeavyWeight",'NA')
     );
     await writeFile(
-      "./output/getMedalistsIndia.json",
-      getMedalistsIndia(athlete_events)
+      "./output/getMedalistsOfCountry.json",
+      getMedalistsOfCountry(athlete_events,'India','NA')
     );
     
   } catch (error) {

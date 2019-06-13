@@ -1,36 +1,26 @@
-let NoOfOlympicHosted;
-let AverageAge;
-let getCountriesWonMedal;
-let getGenderCountPerDecade;
-let getMedalistsIndia;
 
 let serverUrl = "http://localhost:3000/";
 
 function getData() {
   fetch(serverUrl + "getNoOfOlympicHosted")
     .then(data => data.json())
-    .then(data => (NoOfOlympicHosted = data))
-    .then(() => plotgetNoOfOlympicHosted(NoOfOlympicHosted, "problem1"));
+    .then(data => plotgetNoOfOlympicHosted(data, "problem1"));
 
   fetch(serverUrl + "getAverageAge")
     .then(data => data.json())
-    .then(data => (AverageAge = data))
-    .then(() => plotAverageAge(AverageAge, "problem4"));
+    .then(data => plotAverageAge(data, "problem4"));
 
   fetch(serverUrl + "getCountriesWonMedal")
     .then(data => data.json())
-    .then(data => (getCountriesWonMedal = data))
-    .then(() => plotgetCountriesWonMedal(getCountriesWonMedal, "problem2"));
+    .then(data => plotgetCountriesWonMedal(data, "problem2"));
 
   fetch(serverUrl + "getGenderCountPerDecade")
     .then(data => data.json())
-    .then(data => (getGenderCountPerDecade = data))
-    .then(() => plotgetGenderCountPerDecade(getGenderCountPerDecade, "problem3"));
+    .then(data => plotgetGenderCountPerDecade(data, "problem3"));
     
   fetch(serverUrl + "getMedalistsIndia")
     .then(data => data.json())
-    .then(data => (getMedalistsIndia = data))
-    .then(() => plotgetgetMedalistsIndia(getMedalistsIndia, "problem5"));
+    .then(data => plotgetgetMedalistsIndia(data, "problem5"));
 
 }
 getData();

@@ -22,8 +22,8 @@ function getMedal(events, medal, year) {
   return events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
 }
 
-export const getCountriesWonMedal = athlete_events => {
-  let MedalCountry = getMedal(athlete_events, 'NA', 2000);
+export const getCountriesWonMedal =function(athlete_events,medal,year){
+  let MedalCountry = getMedal(athlete_events,medal,year);
   let result = MedalCountry.reduce((result, event) => {
     if (result.hasOwnProperty(event.Team)) {
       if (!result[event.Team].hasOwnProperty(event.Medal)) {
@@ -51,10 +51,7 @@ export const getCountriesWonMedal = athlete_events => {
 };
 
 //**3rd problem **/
-function decadeCount(year) {
-  var decade = Math.round((year - 1890) / 10);
-  return Math.floor(decade);
-}
+
 export const getGenderCountPerDecade = athlete_events => {
   let genderPerYear = athlete_events.reduce((result, item) => {
     if (!result.hasOwnProperty(item.Games)) {
@@ -77,13 +74,13 @@ export const getGenderCountPerDecade = athlete_events => {
     return result;
   }, {});
   let result= Object.keys(gender).reduce((result, item) => {
-    var decVal=decadeCount( parseInt(item.substring(0, 4)));
+
     var decStart = parseInt(item.substring(0, 3)) * 10;
     var decEnd = parseInt(decStart) + 9;
     var decade = parseInt(decStart) + '-' + decEnd;
+
     if (!result.hasOwnProperty(decade)) {
       result[decade] = {};
-      result[decade]['decadeValue']=decVal;
       result[decade]['M'] = gender[item]['M'];
       result[decade]['F'] = gender[item]['F'];
     } else {
@@ -94,7 +91,7 @@ export const getGenderCountPerDecade = athlete_events => {
   }, {});
   let sortedDecade = {};
   Object.keys(result).sort((a, b) => {
-    return result[a]['decadeValue'] - result[b]['decadeValue'];
+    return parseInt(a.substring(0,4))- parseInt(b.substring(0,4));
   }).map(e => {
     sortedDecade[e] = result[e];
   });
@@ -102,13 +99,13 @@ export const getGenderCountPerDecade = athlete_events => {
 }
 
 /*******************************Questions-4*********************************/
-function getBoxingEvents(events, event, age) {
+function getEvents(events, event, age) {
   const boxing_event =
     events.filter(item => (item['Event'] === event) && item['Age'] != age);
   return boxing_event;
 }
-export const getAverageAge = athlete_events => {
-  let BoxingEvent = getBoxingEvents(athlete_events, "Boxing Men's Heavyweight", 'NA');
+export const getAverageAge =function(athlete_events,event, age) {
+  let BoxingEvent = getEvents(athlete_events,event, age);
   let avg_age = BoxingEvent.reduce((result, event) => {
     if (result.hasOwnProperty(event.Year)) {
       result[event.Year]['age_sum'] += parseInt(event.Age);
@@ -130,15 +127,15 @@ export const getAverageAge = athlete_events => {
 };
 
 /*******************************Questions-5*********************************/
-function getIndianMedalists(events, team, medal) {
+function getMedalists(events, team, medal) {
   const indian_medalists =
     events.filter(item => (item['Team'] === team) && item['Medal'] !== medal);
   return indian_medalists;
 }
 
 
-export const getMedalistsIndia = athlete_events => {
-  let indianMedalists = getIndianMedalists(athlete_events, 'India', 'NA');
+export const getMedalistsOfCountry = function(athlete_events, team, medal){
+  let indianMedalists = getMedalists(athlete_events, team, medal);
   return indianMedalists.reduce((indiaResult, event) => {
     if (indiaResult.hasOwnProperty(event.Games)) {
       if (indiaResult[event.Games].indexOf(event.Name) == -1) {
