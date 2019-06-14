@@ -18,21 +18,27 @@ export const getNoOfOlympicHosted = athlete_events => {
 };
 
 /*******************************Questions-2*********************************/
-function getMedal(events,noc, medal, year) {
-  let countryMedal= events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
-  for(let value of Object.values(countryMedal)){
-   value['NOC']=noc[value['NOC']];
+function getMedal(events, noc, medal, year) {
+  console.log(Object.values(noc));
+  let countryMedal = events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
+
+  for (let value of Object.entries(noc)) {
+    for (let val of Object.values(countryMedal)) {
+      if (val['NOC'] === value[0]) {
+        val['NOC']=value[1];
+      }
+    }
   }
   return countryMedal;
 }
-export const getCountriesWonMedal =function(athlete_events,noc_regions,medal,year){
-  let nocToRegion=noc_regions.reduce((accumulator,event)=>{
-    accumulator[event.NOC]=event.region;
+export const getCountriesWonMedal = function (athlete_events, noc_regions, medal, year) {
+  let nocToRegion = noc_regions.reduce((accumulator, event) => {
+    accumulator[event.NOC] = event.region;
     return accumulator;
-  },{});
+  }, {});
 
-  let MedalCountry = getMedal(athlete_events,nocToRegion,medal,year);
-   console.log(MedalCountry);
+  let MedalCountry = getMedal(athlete_events, nocToRegion, medal, year);
+  //console.log(MedalCountry);
 
   let result = MedalCountry.reduce((result, event) => {
 
@@ -82,7 +88,7 @@ export const getGenderCountPerDecade = athlete_events => {
     result[item[0]] = item[1];
     return result;
   }, {});
-  let result= Object.entries(gender).reduce((result, item) => {
+  let result = Object.entries(gender).reduce((result, item) => {
 
     var decStart = parseInt(item[0].substring(0, 3)) * 10;
     var decEnd = parseInt(decStart) + 9;
@@ -98,11 +104,13 @@ export const getGenderCountPerDecade = athlete_events => {
     }
     return result;
   }, {});
-  let sortedRes={};
-    Object.entries(result).sort((a, b) => parseInt(a[0].substring(0,4))- parseInt(b[0].substring(0,4)))
-   .map(event=>{return sortedRes[event[0]]=event[1]});
-   
-   return sortedRes;
+  let sortedRes = {};
+  Object.entries(result).sort((a, b) => parseInt(a[0].substring(0, 4)) - parseInt(b[0].substring(0, 4)))
+    .map(event => {
+      return sortedRes[event[0]] = event[1]
+    });
+
+  return sortedRes;
 }
 
 /*******************************Questions-4*********************************/
@@ -111,8 +119,8 @@ function getEvents(events, event, age) {
     events.filter(item => (item['Event'] === event) && item['Age'] != age);
   return boxing_event;
 }
-export const getAverageAge =function(athlete_events,event, age) {
-  let BoxingEvent = getEvents(athlete_events,event, age);
+export const getAverageAge = function (athlete_events, event, age) {
+  let BoxingEvent = getEvents(athlete_events, event, age);
   let avg_age = BoxingEvent.reduce((result, event) => {
     if (result.hasOwnProperty(event.Year)) {
       result[event.Year]['age_sum'] += parseInt(event.Age);
@@ -141,7 +149,7 @@ function getMedalists(events, team, medal) {
 }
 
 
-export const getMedalistsOfCountry = function(athlete_events, team, medal){
+export const getMedalistsOfCountry = function (athlete_events, team, medal) {
   let indianMedalists = getMedalists(athlete_events, team, medal);
   return indianMedalists.reduce((indiaResult, event) => {
     if (indiaResult.hasOwnProperty(event.Games)) {
