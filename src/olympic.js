@@ -18,25 +18,36 @@ export const getNoOfOlympicHosted = athlete_events => {
 };
 
 /*******************************Questions-2*********************************/
-function getMedal(events, medal, year) {
-  return events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
+function getMedal(events,noc, medal, year) {
+  let countryMedal= events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
+  for(let value of Object.values(countryMedal)){
+    value['NOC']=noc[value['NOC']];
+  }
+  return countryMedal;
 }
+export const getCountriesWonMedal =function(athlete_events,noc_regions,medal,year){
+  let nocToRegion=noc_regions.reduce((accumulator,event)=>{
+    accumulator[event.NOC]=event.region;
+    return accumulator;
+  },{});
 
-export const getCountriesWonMedal =function(athlete_events,medal,year){
-  let MedalCountry = getMedal(athlete_events,medal,year);
+  let MedalCountry = getMedal(athlete_events,nocToRegion,medal,year);
+  // console.log(MedalCountry);
+
   let result = MedalCountry.reduce((result, event) => {
-    if (result.hasOwnProperty(event.Team)) {
-      if (!result[event.Team].hasOwnProperty(event.Medal)) {
-        result[event.Team][event.Medal] = 1;
+
+    if (result.hasOwnProperty(event.NOC)) {
+      if (!result[event.NOC].hasOwnProperty(event.Medal)) {
+        result[event.NOC][event.Medal] = 1;
       } else {
-        result[event.Team][event.Medal] += 1;
+        result[event.NOC][event.Medal] += 1;
       }
-      result[event.Team]['medal_count'] += 1;
+      result[event.NOC]['medal_count'] += 1;
     } else {
-      result[event.Team] = {};
-      if (!result[event.Team].hasOwnProperty(event.Medal)) {
-        result[event.Team][event.Medal] = 1;
-        result[event.Team]['medal_count'] = 1;
+      result[event.NOC] = {};
+      if (!result[event.NOC].hasOwnProperty(event.Medal)) {
+        result[event.NOC][event.Medal] = 1;
+        result[event.NOC]['medal_count'] = 1;
       }
     }
     return result;
@@ -89,13 +100,12 @@ export const getGenderCountPerDecade = athlete_events => {
     }
     return result;
   }, {});
-  let sortedDecade = {};
-  Object.keys(result).sort((a, b) => {
-    return parseInt(a.substring(0,4))- parseInt(b.substring(0,4));
-  }).map(e => {
-    sortedDecade[e] = result[e];
-  });
-  return sortedDecade;
+  let sortedRes={};
+   let sortedDecade = Object.keys(result).sort((a, b) => parseInt(a.substring(0,4))- parseInt(b.substring(0,4)));
+   for (const dec of sortedDecade) {  
+    sortedRes[dec]= result[dec];
+   }
+   return sortedRes;
 }
 
 /*******************************Questions-4*********************************/

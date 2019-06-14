@@ -13,6 +13,7 @@ import {
 
 getData().then(async data => {
   let athlete_events = data.athlete_events;
+  let noc_regions = data.noc_regions;
   try {
 
     await writeFile(
@@ -21,7 +22,7 @@ getData().then(async data => {
     );
     await writeFile(
       "./output/getCountriesWonMedal.json",
-      getCountriesWonMedal(athlete_events,'NA',2000)
+      getCountriesWonMedal(athlete_events,noc_regions,'NA',2000)
     );
     await writeFile(
       "./output/getGenderCountPerDecade.json",
