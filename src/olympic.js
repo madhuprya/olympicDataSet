@@ -21,7 +21,7 @@ export const getNoOfOlympicHosted = athlete_events => {
 function getMedal(events,noc, medal, year) {
   let countryMedal= events.filter(event => (event['Medal'] !== medal)).filter(event => (event.Year > year));
   for(let value of Object.values(countryMedal)){
-    value['NOC']=noc[value['NOC']];
+   value['NOC']=noc[value['NOC']];
   }
   return countryMedal;
 }
@@ -32,7 +32,7 @@ export const getCountriesWonMedal =function(athlete_events,noc_regions,medal,yea
   },{});
 
   let MedalCountry = getMedal(athlete_events,nocToRegion,medal,year);
-  // console.log(MedalCountry);
+   console.log(MedalCountry);
 
   let result = MedalCountry.reduce((result, event) => {
 
@@ -53,10 +53,10 @@ export const getCountriesWonMedal =function(athlete_events,noc_regions,medal,yea
     return result;
   }, {});
   let medalResult = {};
-  Object.keys(result).sort((a, b) => {
-    return result[b]['medal_count'] - result[a]['medal_count'];
+  Object.entries(result).sort((a, b) => {
+    return b[1]['medal_count'] - a[1]['medal_count'];
   }).slice(0, 10).map(e => {
-    medalResult[e] = result[e];
+    medalResult[e[0]] = e[1];
   });
   return medalResult;
 };
@@ -78,33 +78,30 @@ export const getGenderCountPerDecade = athlete_events => {
     }
     return result
   }, {})
-  let gender = Object.keys(genderPerYear).reduce((result, item) => {
-    result[item] = {};
-    result[item]["M"] = genderPerYear[item]["M"];
-    result[item]['F'] = genderPerYear[item]["F"];
+  let gender = Object.entries(genderPerYear).reduce((result, item) => {
+    result[item[0]] = item[1];
     return result;
   }, {});
-  let result= Object.keys(gender).reduce((result, item) => {
+  let result= Object.entries(gender).reduce((result, item) => {
 
-    var decStart = parseInt(item.substring(0, 3)) * 10;
+    var decStart = parseInt(item[0].substring(0, 3)) * 10;
     var decEnd = parseInt(decStart) + 9;
     var decade = parseInt(decStart) + '-' + decEnd;
 
     if (!result.hasOwnProperty(decade)) {
       result[decade] = {};
-      result[decade]['M'] = gender[item]['M'];
-      result[decade]['F'] = gender[item]['F'];
+      result[decade]['M'] = item[1]['M'];
+      result[decade]['F'] = item[1]['F'];
     } else {
-      result[decade]['M'] += gender[item]['M'];
-      result[decade]['F'] += gender[item]['F'];
+      result[decade]['M'] += item[1]['M'];
+      result[decade]['F'] += item[1]['F'];
     }
     return result;
   }, {});
   let sortedRes={};
-   let sortedDecade = Object.keys(result).sort((a, b) => parseInt(a.substring(0,4))- parseInt(b.substring(0,4)));
-   for (const dec of sortedDecade) {  
-    sortedRes[dec]= result[dec];
-   }
+    Object.entries(result).sort((a, b) => parseInt(a[0].substring(0,4))- parseInt(b[0].substring(0,4)))
+   .map(event=>{return sortedRes[event[0]]=event[1]});
+   
    return sortedRes;
 }
 
@@ -130,8 +127,8 @@ export const getAverageAge =function(athlete_events,event, age) {
     result[event.Year]['avg_age'] = Math.floor(result[event.Year]['age_sum'] / result[event.Year]['count']);
     return result;
   }, {});
-  return Object.keys(avg_age).reduce((result, item) => {
-    result[item] = avg_age[item]['avg_age'];
+  return Object.entries(avg_age).reduce((result, item) => {
+    result[item[0]] = item[1]['avg_age'];
     return result;
   }, {});
 };

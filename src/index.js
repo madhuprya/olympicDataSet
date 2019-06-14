@@ -30,7 +30,7 @@ getData().then(async data => {
     );
     await writeFile(
       "./output/getAverageAge.json",
-      getAverageAge(athlete_events,"Boxing Men's HeavyWeight",'NA')
+      getAverageAge(athlete_events,"Boxing Men's Heavyweight",'NA')
     );
     await writeFile(
       "./output/getMedalistsOfCountry.json",
