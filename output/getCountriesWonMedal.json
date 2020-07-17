@@ -5,55 +5,55 @@
     "Bronze": 361,
     "Gold": 570
   },
-  "Russia": {
+  "RUS": {
     "Silver": 203,
     "medal_count": 758,
     "Bronze": 301,
     "Gold": 254
   },
-  "Germany": {
+  "GER": {
     "Silver": 215,
     "medal_count": 706,
     "Gold": 256,
     "Bronze": 235
   },
-  "China": {
-    "Bronze": 166,
-    "medal_count": 579,
-    "Silver": 169,
+  "CHN": {
+    "Bronze": 165,
+    "medal_count": 576,
+    "Silver": 167,
     "Gold": 244
   },
-  "Australia": {
+  "AUS": {
     "Bronze": 193,
     "medal_count": 512,
     "Silver": 193,
     "Gold": 126
   },
-  "Canada": {
+  "CAN": {
     "Bronze": 148,
     "medal_count": 495,
     "Gold": 227,
     "Silver": 120
   },
-  "UK": {
+  "GBR": {
     "Gold": 167,
     "medal_count": 427,
     "Bronze": 120,
     "Silver": 140
   },
-  "France": {
+  "FRA": {
     "Gold": 110,
     "medal_count": 370,
     "Silver": 136,
     "Bronze": 124
   },
-  "Italy": {
+  "ITA": {
     "Bronze": 148,
     "medal_count": 351,
     "Silver": 131,
     "Gold": 72
   },
-  "Netherlands": {
+  "NED": {
     "Bronze": 81,
     "medal_count": 315,
     "Silver": 138,
